@@ -1,0 +1,46 @@
+<%- include('../partials/head.ejs') %>
+  </head>
+
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+      <main class="bd-docs-main">
+        <section class="hero bd-hero bd-is-basic has-background-primary my-5">
+          <div class="hero-body">
+            <div class="container">
+              <div class="bd-hero-body">
+                <div class="bd-hero-heading">
+                  <h1 class="title algolia-lvl0">
+                    <p>Add Nations</p>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="container">
+          <div class="">
+            <div class="columns is-variable is-justify-content-center">
+              <div class="column box mx-3 mb-5 is-one-third">
+
+                <form action="/nations/add-nation" method="POST" class="control">
+                  <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                      <input type="text" id="autofill" name="name" class="input" placeholder="Name" required>
+                      <input type="text" name="code" placeholder="Name" hidden value="">
+                    </div>
+                  </div>
+
+                  <div class="is-flex is-justify-content-end">
+                    <button type="submit" class="button is-primary">Add</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <%- include('../partials/js-script.ejs') %>
+  </body>
+
+  </html>

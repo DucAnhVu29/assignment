@@ -1,0 +1,130 @@
+<%- include('../partials/head.ejs') %>
+   </head>
+
+   <body>
+      <%- include('../partials/navbar.ejs') %>
+         <main class="bd-docs-main">
+            <section class="hero bd-hero bd-is-basic  has-background-primary my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading">
+                           <h1 class="title algolia-lvl0">
+                              <p>Add Players</p>
+                           </h1>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <div class="container">
+               <div class="columns">
+                  <div class="column"></div>
+                  <div class="column is-8 box">
+                     <form action="/players/add-player/" method="POST">
+                        <div class="cloumns is-flex">
+                           <div class="column">
+                              <div class="field">
+                                 <label class="label">Name</label>
+                                 <div class="control">
+                                    <input type="text" id="name" name="name" class="input" placeholder="Name" required>
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Club</label>
+                                 <div class="select">
+                                    <select id="club" name="club">
+                                       <% clubs.map((club)=> { %>
+                                          <option value="<%= club.name %>">
+                                             <%= club.name %>
+                                          </option>
+                                          <% }) %>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Nation</label>
+                                 <div class="select">
+                                    <select id="nation" name="nation">
+                                       <% nations.map((nation)=> { %>
+                                          <option value="<%= nation._id  %>">
+                                             <%= nation.name %>
+                                          </option>
+                                          <% }) %>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Image URL</label>
+                                 <div class="control">
+                                    <input type="text" id="imageUrl" name="imageUrl" class="input"
+                                       placeholder="Image URL" required>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="column is-two-fifths">
+                              <div class="field is-horizontal">
+                                 <div class="field-label is-normal is-4 column">
+                                    <label class="label">Goals</label>
+                                 </div>
+                                 <div class="field-body">
+                                    <div class="field">
+                                       <p class="control">
+                                          <input type="text" id="goals" name="goals" class="input" placeholder="Goals"
+                                             required>
+                                       </p>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <div class="field is-horizontal">
+                                 <div class="field-label is-normal is-4 column">
+                                    <label class="label">Position </label>
+                                 </div>
+                                 <div class="field-body">
+                                    <div class="field">
+                                       <div class="select">
+                                          <select id="position" name="position">
+                                             <% positions.map((position)=> { %>
+                                                <option value="<%= position.name %>">
+                                                   <%= position.name %>
+                                                </option>
+                                                <% }) %>
+                                          </select>
+                                       </div>
+                                       <!-- <p class="control">
+                                          <input type="text" id="position" name="position" class="input"
+                                             placeholder="position" required>
+                                       </p> -->
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="field is-horizontal">
+                                 <div class="field-label column is-8">
+                                    <label class="label">Is he/she a captain? </label>
+                                 </div>
+                                 <div class="field-body">
+                                    <div class="field is-flex">
+                                       <div class="control is-flex is-align-content-center">
+                                          <label class="checkbox is-flex is-align-content-center text-align-center">
+                                             <input type="checkbox" id="isCaptain" name="isCaptain" value="true">
+                                          </label>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                           </div>
+                        </div>
+                        <div class="is-flex is-justify-content-end">
+                           <button type="submit" class="button is-primary">Add</button>
+                        </div>
+                     </form>
+                  </div>
+                  <div class="column"></div>
+               </div>
+            </div>
+         </main>
+   </body>
+
+   </html>

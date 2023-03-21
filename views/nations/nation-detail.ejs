@@ -1,0 +1,114 @@
+<%- include('../partials/head.ejs') %>
+   </head>
+
+   <body>
+      <%- include('../partials/navbar.ejs') %>
+         <main class="bd-docs-main">
+            <section class="hero bd-hero bd-is-basic has-background-primary my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading">
+                           <h1 class="title algolia-lvl0">
+                              <p>Nation Details</p>
+                           </h1>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <div class="container">
+               <div class="">
+                  <div class="columns">
+                     <!-- <div class="column box mx-3 mb-5">
+                        <div class="panel-block media pt-5 pb-5">
+                           <div class="media-content">
+                              <p class="title is-4">
+                                 <%= nation.name %>
+                              </p>
+                              <p class="sub-title">
+                                 <%= description %>
+                              </p>
+                           </div>
+
+                        </div>
+                        <% if(error_msg !=null ){ %>
+                           <%= error_msg %>
+                              <% } %>
+                                 <% if(session.admin==true) {%>
+                                    <div class="is-flex is-justify-content-end mt-5">
+                                       <a href="/nations/edit-nation/<%= nation.id %>" type="submit"
+                                          class="button is-warning">Edit</a>
+
+                                       <button class="button is-danger mx-2 js-modal-trigger"
+                                          data-target="modal-js-example">Delete</button>
+
+                                    </div>
+                                    <% } %>
+                     </div> -->
+
+                     <div class="card column is-three-fifths is-offset-one-fifth">
+                        <div class="columns">
+                           <div class=" column is-two-thirds">
+                              <figure class="image is-4by3">
+                                 <img src="<%= nation.imageUrl %>" alt="<%= nation.name %>" crossorigin="anonymous">
+                              </figure>
+                           </div>
+                           <div class="card-content column mt-5">
+                              <div class="media">
+                                 <div class="media-content">
+                                    <p class="title is-4">
+                                       <%= nation.name %>
+                                    </p>
+                                 </div>
+                              </div>
+
+                              <div class="content">
+                                 <%= nation.description %>
+                              </div>
+                              <% if(error_msg !=null ){ %>
+                                 <p class="has-text-danger">
+                                    <%= error_msg %>
+                                 </p>
+                                 <% } %>
+                                    <% if(session.admin==true) {%>
+                                       <div class="is-flex is-justify-content-end">
+                                          <button class="button is-danger js-modal-trigger"
+                                             data-target="modal-js-example">Delete</button>
+
+                                          <a href="/nations/edit-nation/<%= nation.id %>"
+                                             class="button is-warning mx-2">Update</a>
+                                       </div>
+                                       <% } %>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+         </main>
+         <!-- modal  -->
+         <div class="modal" id="modal-js-example">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+               <header class="modal-card-head">
+                  <p class="modal-card-title is-3">Delete <%= nation.name %>
+                  </p>
+                  <button class="delete" aria-label="close"></button>
+               </header>
+               <section class="modal-card-body">
+                  <p class="title is-5">Are you sure about that?</p>
+               </section>
+               <footer class="modal-card-foot is-flex is-justify-content-end">
+                  <form action="/nations/remove-nation/<%= nation.id %>" method="POST">
+                     <input type="hidden" name="id" value="<%= nation.id %>">
+                     <button class="button is-danger">Delete</button>
+                  </form>
+                  <button class="button mx-2">Cancel</button>
+               </footer>
+            </div>
+         </div>
+         <%- include('../partials/js-script.ejs') %>
+   </body>
+
+   </html>

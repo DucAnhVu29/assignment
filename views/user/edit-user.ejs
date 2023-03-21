@@ -1,0 +1,93 @@
+<%- include('../partials/head.ejs') %>
+   </head>
+
+   <body>
+      <%- include('../partials/navbar.ejs') %>
+         <main class="bd-docs-main">
+            <section class="hero bd-hero bd-is-basic has-background-primary my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading">
+                           <h1 class="title algolia-lvl0">
+                              <p>Edit <%= session.user.username %> profile </p>
+                           </h1>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <div class="container">
+               <div class="">
+                  <div class="columns is-variable">
+                     <div class="column"></div>
+                     <div class="column is-half box mx-3">
+                        <div class="m-5">
+                           <form method="post" action="">
+                              <div class="field">
+                                 <label class="label">Username</label>
+                                 <div class="control">
+                                    <input class="input" name="username" type="text"
+                                       placeholder="Type your username...." required value="<%= user.username %>">
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Old Password</label>
+                                 <div class="control">
+                                    <input class="input is-success" name="oldpassword" type="password"
+                                       value="<%= oldpassword %>" required>
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Password</label>
+                                 <div class="control">
+                                    <input class="input is-success" name="password" type="password"
+                                       value="<%= password %>">
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">ConFirm Password</label>
+                                 <div class="control">
+                                    <input class="input is-success" name="confirmpassword" type="password"
+                                       value="<%= confirmpassword %>">
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Name</label>
+                                 <div class="control">
+                                    <input class="input" name="name" type="text" required value="<%= user.name %>">
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Year of birth</label>
+                                 <div class="control">
+                                    <input class="input" name="YearOfBirth" type="number" required min="1900" max="2023"
+                                       value="<%= user.YearOfBirth %>">
+                                 </div>
+                              </div>
+
+                              <div class="field is-grouped is-justify-content-end">
+                                 <div class="control">
+                                    <button class="button is-primary">Update
+                                    </button>
+                                 </div>
+                              </div>
+
+                              <% if (typeof errors !='undefined' ) { %>
+                                 <% errors.forEach(function (error){ %>
+                                    <div class=" notification is-danger is-light" role="alert">
+                                       <%= error.msg %>
+                                    </div>
+                                    <% }); %>
+                                       <% } %>
+                           </form>
+                        </div>
+                     </div>
+                     <div class="column"></div>
+                  </div>
+               </div>
+            </div>
+         </main>
+   </body>
+
+   </html>

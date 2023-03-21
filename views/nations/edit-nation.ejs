@@ -1,0 +1,87 @@
+<%- include('../partials/head.ejs') %>
+  </head>
+
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+      <main class="bd-docs-main">
+        <section class="hero bd-hero bd-is-basic has-background-primary my-5">
+          <div class="hero-body">
+            <div class="container">
+              <div class="bd-hero-body">
+                <div class="bd-hero-heading">
+                  <h1 class="title algolia-lvl0">
+                    <p>Edit Nations</p>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="container">
+          <div class="">
+            <!-- <div class="columns is-variable">
+              <div class="column is-one-third box mx-3">
+                  <div class="panel-block is-justify-content-end">
+                    <a href="/nations/add-nation" class="button is-primary">Add Nation</a>
+                  </div>
+              </div>
+              <div class="column box mx-3 mb-5">
+                <form action="/nations/edit-nation/<%= nation.id %>" method="POST" class="control">
+                  <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                      <input type="text" id="name" name="name" class="input" placeholder="Name"
+                        value="<%= nation.name %>" required>
+                    </div>
+                  </div>
+                  <% if (typeof errors !='undefined' ) { %>
+                    <div class=" notification is-danger is-light" role="alert">
+                      <%= error.msg %>
+                    </div>
+                    <% } %>
+                      <div class="is-flex is-justify-content-end">
+                        <button type="submit" class="button is-primary">Update</button>
+
+                </form>
+              </div>
+            </div> -->
+
+            <div class="columns">
+              <div class="card column is-three-fifths is-offset-one-fifth">
+                <div class="columns">
+                  <div class=" column is-two-thirds">
+                    <figure class="image is-4by3">
+                      <img src="<%= nation.imageUrl %>" alt="<%= nation.name %>" crossorigin="anonymous">
+                    </figure>
+                  </div>
+                  <div class="card-content column mt-5">
+                    <form action="/nations/edit-nation/<%= nation.id %>" method="POST" class="control">
+                      <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                          <input type="text" id="autofill" name="name" class="input" placeholder="Name"
+                            value="<%= nation.name %>" required>
+                          <input type="text" name="code" placeholder="Name" hidden value="">
+                        </div>
+                      </div>
+                      <% if(error_msg !=null ){ %>
+                        <p class="has-text-danger">
+                          <%= error_msg %>
+                        </p>
+                        <% } %>
+                          <div class="is-flex is-justify-content-end mt-3">
+                            <button type="submit" class="button is-primary">Update</button>
+                          </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <%- include('../partials/js-script.ejs') %>
+  </body>
+
+  </html>

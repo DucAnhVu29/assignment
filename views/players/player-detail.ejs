@@ -1,0 +1,121 @@
+<%- include('../partials/head.ejs') %>
+   </head>
+
+   <body>
+      <%- include('../partials/navbar.ejs') %>
+         <main class="bd-docs-main">
+            <section class="hero bd-hero bd-is-basic  has-background-primary my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading">
+                           <h1 class="title algolia-lvl0">
+                              <p>Player details</p>
+                           </h1>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <div class="container">
+               <div class="columns">
+                  <div class="column"></div>
+                  <div class="column is-8 box">
+                     <div class="cloumns is-flex">
+                        <div class="column is-one-third">
+                           <figure class="image is-4by5">
+                              <img src="<%= player.imageUrl %>">
+                           </figure>
+                        </div>
+                        <div class="column is-2">
+                           <div class="panel-block">
+                              <h5 class="title is-5">Name: </h5>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">Club: </h5>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">Nation: </h5>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">Position: </h5>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">Goals: </h5>
+                           </div>
+                           <div class="panel-block"></div>
+                        </div>
+                        <div class="column">
+                           <div class="panel-block">
+                              <h5 class="title is-5 mb-0">
+                                 <%= player.name%>
+                              </h5>
+                              <% if (player.isCaptain) { %>
+                                 <span class="icon">
+                                    <i class="fa-solid fa-crown has-text-warning	"></i>
+                                 </span>
+                                 <% }%>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">
+                                 <%= player.club %>
+                              </h5>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">
+                                 <%= nation.name%>
+                              </h5>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">
+                                 <%= player.position%>
+                              </h5>
+                           </div>
+                           <div class="panel-block">
+                              <h5 class="title is-5">
+                                 <%= player.goals%>
+                              </h5>
+                           </div>
+                           <div class="panel-block"></div>
+                        </div>
+                     </div>
+
+                     <% if(session.admin==true) {%>
+                        <div class="is-flex is-justify-content-end">
+                           <button class="button is-danger js-modal-trigger"
+                              data-target="modal-js-example">Delete</button>
+
+                           <a href="/players/edit-player/<%= player.id %>" class="button is-warning mx-2">Update</a>
+                        </div>
+                        <% } %>
+                  </div>
+                  <div class="column"></div>
+               </div>
+            </div>
+         </main>
+
+         <!-- modal  -->
+         <div class="modal" id="modal-js-example">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+               <header class="modal-card-head">
+                  <p class="modal-card-title is-3">Delete <%= player.name %>
+                  </p>
+                  <button class="delete" aria-label="close"></button>
+               </header>
+               <section class="modal-card-body">
+                  <p class="title is-5">Are you sure about that?</p>
+               </section>
+               <footer class="modal-card-foot is-flex is-justify-content-end">
+                  <form action="/players/remove-player/<%= player.id %>" method="POST">
+                     <input type="hidden" name="id" value="<%= player.id %>">
+                     <button class="button is-danger">Delete</button>
+                  </form>
+                  <button class="button mx-2">Cancel</button>
+               </footer>
+            </div>
+         </div>
+         <%- include('../partials/js-script.ejs') %>
+   </body>
+
+   </html>

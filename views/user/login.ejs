@@ -1,0 +1,78 @@
+<%- include('../partials/head.ejs') %>
+   </head>
+
+   <body>
+      <%- include('../partials/navbar.ejs') %>
+         <main class="bd-docs-main">
+            <section class="hero bd-hero bd-is-basic my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading">
+                           <h1 class="title algolia-lvl0">
+                           </h1>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <div class="container">
+               <div class="">
+                  <div class="columns is-variable">
+                     <div class="column is-one-third"></div>
+                     <div class="column is-one-third box mx-3">
+                        <section class="hero bd-hero bd-is-basic">
+                           <div class="hero-body">
+                              <div class="container">
+                                 <div class="bd-hero-body">
+                                    <div class="bd-hero-heading">
+                                       <h1 class="title algolia-lvl0">
+                                          <p class="has-text-centered">Sign In</p>
+                                       </h1>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </section>
+                        <div class="m-5">
+                           <form method="post">
+                              <div class="field">
+                                 <label class="label">Username</label>
+                                 <div class="control">
+                                    <input class="input" name="username" type="text"
+                                       placeholder="Type your username...." value="<%= session.tmpUsername %>">
+                                 </div>
+                              </div>
+                              <div class="field">
+                                 <label class="label">Password</label>
+                                 <div class="control">
+                                    <input class="input" name="password" type="password"
+                                       placeholder="At least 6 characters">
+                                 </div>
+                              </div>
+                              <div class="field is-grouped is-justify-content-end">
+                                 <div class="control">
+                                    <button class="button is-primary">Login</button>
+                                 </div>
+                              </div>
+                           </form>
+                           <% if(success_msg !=null ){ %>
+                              <%= success_msg %>
+                                 <% } %>
+                                    <% if(error_msg !=null ){ %>
+                                       <%= error_msg %>
+                                          <% } %>
+                                             <% if(error !=null ){ %>
+                                                <%= error %>
+                                                   <% } %>
+                        </div>
+                     </div>
+                     <div class="column is-one-third"></div>
+                  </div>
+               </div>
+            </div>
+         </main>
+
+   </body>
+
+   </html>

@@ -1,0 +1,172 @@
+<%- include('../partials/head.ejs') %>
+	<style>
+		.hidden-hover {
+			display: none;
+		}
+	</style>
+	</head>
+
+	<body>
+		<%- include('../partials/navbar.ejs') %>
+			<main class="bd-docs-main">
+				<section class="hero bd-hero bd-is-basic has-background-primary mb-5">
+					<div class="hero-body">
+						<div class="container">
+							<div class="bd-hero-body">
+								<div class="bd-hero-heading columns">
+									<div class="column">
+										<h1 class="title algolia-lvl0">
+											<p>All Nations</p>
+										</h1>
+									</div>
+									<% if(session.admin==true) {%>
+										<div class="is-flex is-justify-content-end column">
+											<a class="button js-modal-trigger" data-target="modal-js-example"
+												href="nations/add-nation">Add
+												Nation</a>
+										</div>
+										<% } %>
+								</div>
+								<div class="columns">
+									<div class="column">
+										<div class="control has-icons-left mt-5">
+											<input class="input is-medium is-rounded" name="nationName" type="text"
+												placeholder="Search nation" id="autofillnation">
+											<span class="icon is-left">
+												<i class="fas fa-search"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<div class="container">
+					<div class="">
+						<%- include('../partials/error-search.ejs') %>
+							<div class="is-multiline columns is-variable" id="nation-list">
+								<!-- <div class="column is-one-third box mx-3"> -->
+								<%- include('../partials/nations/nation-list.ejs') %>
+
+									<!-- </div> -->
+							</div>
+							<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+								<!-- <ul class="pagination-list" id=""> -->
+								<% if(currentPage==1){ %>
+									<a class="pagination-previous" aria-disabled="true"
+										href="http://localhost:5500/nations?page=1">Previous page</a>
+									<% } else { %>
+										<a class="pagination-previous"
+											href="http://localhost:5500/nations?page=<%= --currentPage %>">Previous page</a>
+										<% } %>
+											<% if(currentPage==pageAmount){ %>
+												<a class="pagination-next"
+													href="http://localhost:5500/nations?page=<%= pageAmount %>">Next
+													page</a>
+												<% } else { %>
+													<a class="pagination-next"
+														href="http://localhost:5500/nations?page=<%= ++currentPage %>">Next
+														page</a>
+													<% } %>
+														<ul class="pagination-list" id="">
+
+															<% for (let page=1; page <=pageAmount; page++) {%>
+																<li>
+																	<a class="pagination-link <% currentPage == page ? 'is-current' : '' %> "
+																		href="http://localhost:5500/nations?page=<%= page %>">
+																		<%= page %>
+																	</a>
+																</li>
+																<% } %>
+														</ul>
+							</nav>
+					</div>
+				</div>
+				<section class="hero bd-hero bd-is-basic my-5">
+					<div class="hero-body">
+						<div class="container">
+							<div class="bd-hero-body">
+								<div class="bd-hero-heading columns">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+
+			<!-- modal  -->
+			<div class="modal" id="modal-js-example">
+				<div class="modal-background"></div>
+				<div class="modal-card">
+					<header class="modal-card-head">
+						<p class="modal-card-title is-3">Add new nation</p>
+						<button class="delete" aria-label="close"></button>
+					</header>
+					<form action="/nations/add-nation" method="POST" class="control">
+						<section class="modal-card-body">
+							<div class="field">
+								<label class="label">Nation's Name</label>
+								<div class="control">
+									<input type="text" id="autofill" name="name" class="input" placeholder="Name" required>
+									<input type="text" name="code" placeholder="Name" hidden value="">
+								</div>
+							</div>
+
+							<!-- <div class="is-flex is-justify-content-end">
+								<button type="submit" class="button is-primary">Add</button>
+							</div> -->
+						</section>
+						<footer class="modal-card-foot is-flex is-justify-content-end">
+							<button type="submit" class="button is-primary">Add</button>
+							<button class="button mx-2">Cancel</button>
+						</footer>
+					</form>
+				</div>
+			</div>
+
+			<script>
+
+				document.querySelector('#autofillnation').addEventListener('input', function () {
+					$.ajax({
+						url: "http://localhost:5500/autocomplete/nation",
+						method: 'GET',
+						dataType: "json",
+						data: {
+							s: this.value
+						},
+						success: function (data) {
+							console.log("🚀 ~ file: nations.ejs:134 ~ data:", data)
+
+							const playerlist = document.querySelector('#nation-list');
+
+							console.log("🚀 ~ file: nations.ejs:134 ~ data:", data)
+
+							var htmlString = '';
+
+							data.forEach(element => {
+								console.log("🚀 ~ file: nations.ejs:119 ~ element:", element)
+
+								htmlString += `
+												<a href="/nations/${element._id}" class="column is-one-fifth">
+													<div class="card">
+														<div class="card-image">
+															<figure class="image is-3by2">
+																<img src="${element.imageUrl}" alt="${element.name}" crossorigin="anonymous">
+															</figure>	
+														</div>
+													</div>
+												</a>
+												`
+							});
+
+							playerlist.innerHTML = htmlString;
+						}
+					});
+				});
+			</script>
+
+	</body>
+
+	</html>

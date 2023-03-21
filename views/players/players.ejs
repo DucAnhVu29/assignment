@@ -1,0 +1,173 @@
+<%- include('../partials/head.ejs') %>
+   </head>
+
+   <body>
+      <%- include('../partials/navbar.ejs') %>
+         <main class="bd-docs-main">
+            <section class="hero bd-hero bd-is-basic has-background-primary my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading columns">
+                           <div class="column">
+                              <h1 class="title algolia-lvl0">
+                                 <p>All Players</p>
+                              </h1>
+                           </div>
+                           <% if(session.admin==true) {%>
+                              <div class="is-flex is-justify-content-end column">
+                                 <a href="/players/add-player" class="button">Add Player</a>
+                              </div>
+                              <% } %>
+                        </div>
+                        <div class="columns">
+                           <div class="column">
+                              <div class="control has-icons-left mt-5">
+                                 <input class="input is-medium is-rounded" name="nationName" type="text"
+                                    placeholder="Search nation" id="autofillplayer">
+                                 <span class="icon is-left">
+                                    <i class="fas fa-search"></i>
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <div class="container">
+               <div class="columns">
+                  <div class="is-one-fifth column">
+                     <article class="panel is-primary">
+                        <p class="panel-heading">
+                           Filter
+                        </p>
+                        <form action="http://localhost:5500/search/player/filter" method="GET">
+                           <div class="panel-block is-justify-content-center">
+                              <p class="panel-block">
+                                 Nation
+                              </p>
+                              <div class="select is-primary">
+                                 <select id="nation" name="nation">
+                                    <option value="all">All</option>
+                                    <% nations.map((nation)=> { %>
+                                       <option value="<%= nation._id  %>" <%=nation._id==nationchossen ? 'selected' : ''
+                                          %>>
+                                          <%= nation.name %>
+                                       </option>
+                                       <% }) %>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="panel-block is-justify-content-center">
+                              <p class="panel-block">
+                                 Club
+                              </p>
+                              <div class="select is-primary">
+                                 <select id="club" name="club">
+                                    <option value="all">All</option>
+                                    <% clubs.map((club)=> { %>
+                                       <option value="<%= club.name  %>" <%=club.name==clubchossen ? 'selected' : '' %>>
+                                          <%= club.name %>
+                                       </option>
+                                       <% }) %>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="panel-block is-justify-content-center">
+                              <p class="panel-block">
+                                 position
+                              </p>
+                              <div class="select is-primary">
+                                 <select id="position" name="position">
+                                    <option value="all">All</option>
+                                    <% positions.map((position)=> { %>
+                                       <option value="<%= position.name  %>" <%=position.name==positionchossen
+                                          ? 'selected' : '' %>>
+                                          <%= position.name %>
+                                       </option>
+                                       <% }) %>
+                                 </select>
+                              </div>
+                           </div>
+                           <label class="panel-block">
+                              <input type="checkbox" id="isCaptain" name="isCaptain" value="true" <%=isCaptain=="true"
+                                 ? 'checked' : '' %>>
+                              Captain or not?
+                           </label>
+                           <div class="panel-block">
+                              <button class="button is-link is-outlined is-fullwidth" type="submit" id="filter-button">
+                                 Search
+                              </button>
+                           </div>
+                        </form>
+                     </article>
+                  </div>
+
+                  <div class="column">
+                     <div class="columns is-multiline" id="player-list">
+                        <%- include('../partials/players/player-list.ejs') %>
+                     </div>
+                     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                        <% if(currentPage==1){ %>
+                           <a class="pagination-previous" aria-disabled="true"
+                              href="http://localhost:5500/players?page=1">Previous page</a>
+                           <% } else { %>
+                              <a class="pagination-previous"
+                                 href="http://localhost:5500/players?page=<%= --currentPage %>">Previous page</a>
+                              <% } %>
+                                 <% if(currentPage==pageAmount){ %>
+                                    <a class="pagination-next"
+                                       href="http://localhost:5500/players?page=<%= pageAmount %>">Next
+                                       page</a>
+                                    <% } else { %>
+                                       <a class="pagination-next"
+                                          href="http://localhost:5500/players?page=<%= ++currentPage %>">Next
+                                          page</a>
+                                       <% } %>
+                                          <ul class="pagination-list" id="">
+
+                                             <% for (let page=1; page <=pageAmount; page++) {%>
+                                                <li>
+                                                   <a class="pagination-link <% currentPage == page ? 'is-current' : '' %> "
+                                                      href="http://localhost:5500/players?page=<%= page %>">
+                                                      <%= page %>
+                                                   </a>
+                                                </li>
+                                                <% } %>
+
+                                                   <!-- <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                                 <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                 <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                                 <li><a class="pagination-link is-current" aria-label="Page 46"
+                                       aria-current="page">46</a>
+                                 </li>
+                                 <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                                 <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                 <li><a class="pagination-link" aria-label="Goto page 86">86</a></li> -->
+                                          </ul>
+                     </nav>
+
+                  </div>
+               </div>
+            </div>
+            <section class="hero bd-hero bd-is-basic my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading columns">
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+
+         </main>
+
+
+
+
+   </body>
+
+   </html>

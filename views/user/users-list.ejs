@@ -1,0 +1,47 @@
+<%- include('../partials/head.ejs') %>
+   </head>
+
+   <body>
+      <%- include('../partials/navbar.ejs') %>
+
+         <main class="bd-docs-main">
+            <section class="hero bd-hero bd-is-basic has-background-primary my-5">
+               <div class="hero-body">
+                  <div class="container">
+                     <div class="bd-hero-body">
+                        <div class="bd-hero-heading">
+                           <h1 class="title algolia-lvl0">
+                              <p>List of users
+                              </p>
+                           </h1>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <div class="columns">
+               <div class="column"></div>
+               <div class="column is-three-fifths">
+                  <% if (users.length> 0) { %>
+                     <% users.forEach(user=> { %>
+                        <div class="card m-2">
+                           <div class="card-content">
+                              <p class="title">
+                                 Name: <%= user.name %>
+                              </p>
+                              <p class="subtitle">
+                                 Username: <%= user.username %>
+                                    </br>
+                                    Year of birth: <%= user.YearOfBirth %>
+                              </p>
+                           </div>
+                        </div>
+                        <% }) %>
+                           <% }%>
+               </div>
+               <div class="column"></div>
+            </div>
+         </main>
+   </body>
+
+   </html>
