@@ -53,33 +53,21 @@
 							</div>
 							<nav class="pagination is-centered" role="navigation" aria-label="pagination">
 								<!-- <ul class="pagination-list" id=""> -->
-								<% if(currentPage==1){ %>
-									<a class="pagination-previous" aria-disabled="true"
-										href="http://localhost:5500/nations?page=1">Previous page</a>
-									<% } else { %>
-										<a class="pagination-previous"
-											href="http://localhost:5500/nations?page=<%= --currentPage %>">Previous page</a>
-										<% } %>
-											<% if(currentPage==pageAmount){ %>
-												<a class="pagination-next"
-													href="http://localhost:5500/nations?page=<%= pageAmount %>">Next
-													page</a>
-												<% } else { %>
-													<a class="pagination-next"
-														href="http://localhost:5500/nations?page=<%= ++currentPage %>">Next
-														page</a>
-													<% } %>
-														<ul class="pagination-list" id="">
 
-															<% for (let page=1; page <=pageAmount; page++) {%>
-																<li>
-																	<a class="pagination-link <% currentPage == page ? 'is-current' : '' %> "
-																		href="http://localhost:5500/nations?page=<%= page %>">
-																		<%= page %>
-																	</a>
-																</li>
-																<% } %>
-														</ul>
+								<a class="pagination-previous" id="previou-page">Previous page</a>
+								<a class="pagination-next" id="next-page">Next
+									page</a>
+								<ul class="pagination-list" id="">
+
+									<% for (let page=1; page <=pageAmount; page++) {%>
+										<li>
+											<a class="pagination-link <% currentPage == page ? 'is-current' : '' %> "
+												id="page-<%= page %>">
+												<%= page %>
+											</a>
+										</li>
+										<% } %>
+								</ul>
 							</nav>
 					</div>
 				</div>
@@ -165,6 +153,60 @@
 						}
 					});
 				});
+
+				document.querySelector('.pagination-link').addEventListener('click', function () {
+					// pagiantion ajax
+
+
+				})
+
+				var lists = document.querySelectorAll(".pagination-list li"),
+					doSomething = function () {
+						[].map.call(lists, function (elem) { elem.children[0].classList.remove("is-current") });
+						this.children[0].classList.add("is-current");
+						var index = $(this).parent().children().index(this);
+						index = +index + 1;
+						$.ajax({
+							url: "http://localhost:5500/nations/pagiantion",
+							method: 'GET',
+							dataType: "json",
+							data: {
+								page: index
+							},
+							success: function (data) {
+								console.log("🚀 ~ file: nations.ejs:134 ~ data:", data)
+
+								const playerlist = document.querySelector('#nation-list');
+
+								console.log("🚀 ~ file: nations.ejs:134 ~ data:", data)
+
+								var htmlString = '';
+
+								data.forEach(element => {
+									console.log("🚀 ~ file: nations.ejs:119 ~ element:", element)
+
+									htmlString += `
+												<a href="/nations/${element._id}" class="column is-one-fifth">
+													<div class="card">
+														<div class="card-image">
+															<figure class="image is-3by2">
+																<img src="${element.imageUrl}" alt="${element.name}" crossorigin="anonymous">
+															</figure>	
+														</div>
+													</div>
+												</a>
+												`
+								});
+
+								playerlist.innerHTML = htmlString;
+							}
+						})
+					};
+				[].map.call(lists, function (elem) {
+					elem.addEventListener("click", doSomething, false);
+				});
+
+
 			</script>
 
 	</body>

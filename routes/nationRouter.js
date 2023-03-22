@@ -18,6 +18,8 @@ router.route('/add-nation')
    .get(verifyAdmin, nationsController.getAddNation)
    .post(verifyAdmin, nationsController.postAddNation)
 
+router.get('/pagiantion', nationsController.getNationPagiantion)
+
 // router.post('/add-nation', nationsController.postAddNation);
 
 // router.get('/add-nation', nationsController.getAddNation);

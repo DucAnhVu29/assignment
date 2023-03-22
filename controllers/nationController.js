@@ -40,6 +40,35 @@ exports.getNations = (req, res, next) => {
 	});
 };
 
+exports.getNationPagiantion = (req, res, next) => {
+
+	let { page } = req.query;
+	console.log("🚀 ~ file: nationController.js:46 ~ page:", page)
+
+	if (!page || page < 1) {
+		page = 1;
+	}
+
+	let size = 10;
+
+	const limit = 10;
+	const skip = (page - 1) * size;
+
+	Nation.countDocuments().then((total) => {
+
+		let pageAmount = Math.ceil(total / size);
+
+		Nation.find().skip(skip).limit(limit).then((nations) => {
+			console.log("🚀 ~ file: nationController.js:62 ~ Nation.find ~ nations:", nations)
+			res.send(nations);
+		})
+			.catch((err) => {
+				console.log(err);
+				res.end('Error');
+			});
+	});
+}
+
 exports.getNationById = (req, res, next) => {
 	Nation.find()
 		.then((nations) => {
